@@ -1,0 +1,116 @@
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+#define LCD_ADDRESS 0x26
+LiquidCrystal_I2C lcd(LCD_ADDRESS, 16, 2);
+#include <Arduino.h>
+
+// Define the pin connections
+const int mq9VccPin = 5; // VCC pin
+const int mq9GndPin = 4; // GND pin
+const int mq9OutPin = A0; // Analog output pin
+const int redled = 7;
+const int greenled = 6;
+const int buzzer1 = 3;
+const int buzzer2 = 2;
+const int push_button = 10;
+// Define the MQ-9 sensor calibration parameters
+const float mq9Ro = 10.0; // Sensor resistance at 1000ppm CO
+const float mq9RsAir = 9.9; // Sensor resistance in clean air
+int pos = 0;
+int Flame = HIGH;
+
+#define FlameSensor 8
+#define Relay 9
+
+
+void setup() 
+{
+  // Initialize the serial communication
+  Serial.begin(9600);
+  lcd.init();
+  lcd.backlight();
+  pinMode(redled, OUTPUT);
+  pinMode(greenled, OUTPUT);
+  pinMode(buzzer1, OUTPUT);
+  pinMode(buzzer2, OUTPUT);
+  pinMode(FlameSensor, INPUT);
+  pinMode(Relay, OUTPUT);
+  // Set the VCC and GND pins as output
+  pinMode(mq9VccPin, OUTPUT);
+  pinMode(mq9GndPin, OUTPUT);
+  // Set the VCC pin high and GND pin low
+  digitalWrite(mq9VccPin, HIGH);
+  digitalWrite(mq9GndPin, LOW);
+}
+
+void loop() 
+{
+  // Read the analog value from the MQ-9 sensor
+  int mq9Value = analogRead(mq9OutPin);
+  // Convert the analog value to voltage
+  float mq9Voltage = mq9Value * (5.0 / 1023.0);
+  // Calculate the sensor resistance
+  float mq9Rs = (5.0 - mq9Voltage) / mq9Voltage * mq9Ro;
+  // Calculate the CO concentration in PPM
+  float coConcentration = (mq9Rs / mq9RsAir - 1.0) * 1000.0;
+  
+  if( coConcentration<750) 
+  {
+    digitalWrite(buzzer1, LOW);
+    delay(90);
+    digitalWrite(buzzer1, HIGH);
+    delay(50);
+    digitalWrite(buzzer1, LOW);
+    delay(50);
+    digitalWrite(buzzer1, HIGH);
+    delay(60);
+    
+    digitalWrite(greenled, HIGH);
+  if(digitalRead(push_button)==HIGH){
+    digitalWrite(buzzer1, HIGH);
+    delay(10000);
+  
+  
+  }
+  else
+  {
+    digitalWrite(buzzer1, HIGH);
+    
+    digitalWrite(greenled, LOW);
+  }
+  
+  Flame = digitalRead(FlameSensor);
+  if(Flame == HIGH) // If fire is detected
+  {
+    digitalWrite(redled, HIGH); // turn on red led
+    digitalWrite(greenled, LOW); // turn off green led
+    digitalWrite(buzzer2, HIGH);
+    
+    digitalWrite(Relay, LOW); // activate the water pump via the relay
+    lcd.setCursor(0, 0);
+    lcd.print("NO FIRE!"); 
+    delay(1000);
+  }
+  else 
+  {
+    digitalWrite(redled, LOW); // turn off red led
+    digitalWrite(greenled, HIGH); // turn on green led
+    digitalWrite(buzzer2, LOW);
+    
+    digitalWrite(Relay, HIGH); // don't activate the water pump
+    lcd.setCursor(0, 0);
+    lcd.print("FIRE!"); 
+    delay(600);
+    
+    lcd.print("             ");
+    delay(600);
+  }
+  // Print the CO concentration to the serial monitor
+  Serial.print("CO Concentration: ");
+  Serial.print(coConcentration);
+  Serial.println(" ppm");
+  // Wait for 1 second before taking the next reading
+  delay(1000);
+  }
+  }
