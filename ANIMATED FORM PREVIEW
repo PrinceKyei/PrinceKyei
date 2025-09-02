@@ -1,0 +1,115 @@
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animated Form</title>
+  <style>
+    /* Basic styles for the form container */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+    }
+
+    .form-container {
+      background-color: #fff;
+      padding: 40px 30px;
+      width: 100%;
+      max-width: 400px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+                                                                                      
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    /* Label style for animation */
+    .form-group label {
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      color: #999;
+      font-size: 16px;
+      pointer-events: none;
+      transition: 0.3s;
+      transform: translateY(-50%);
+    }
+
+    /* Style for input fields */
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      padding-left: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    /* On focus, move label up and change colors */
+    .form-group input:focus {
+      border-color: #057D61;
+    }
+
+    .form-group input:focus + label,
+    .form-group input:not(:placeholder-shown) + label {
+      top: -10px;
+      background-color: #fff;
+      padding: 0 5px;
+      color: #057D61;
+      font-size: 13px;
+    }
+
+    /* Style for the submit button */
+    .submit-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #057D61;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .submit-btn:hover {
+      background-color: #045a4b;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>Sign Up</h2>
+    <form>
+      <div class="form-group">
+        <input type="text" required="" placeholder=" " id="name">
+        <label for="name">Full Name</label>
+      </div>
+      <div class="form-group">
+        <input type="email" required="" placeholder=" " id="email">
+        <label for="email">Email Address</label>
+      </div>
+      <div class="form-group">
+        <input type="password" required="" placeholder=" " id="password">
+        <label for="password">Password</label>
+      </div>
+      <button type="submit" class="submit-btn">Register</button>
+    </form>
+  </div>
+
+
+</body></html>
