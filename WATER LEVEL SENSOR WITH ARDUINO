@@ -1,0 +1,55 @@
+// WATER LEVEL SENSOR WITH ARDUINO
+
+int sensorPin = A0;      // Water level sensor connected to analog pin A0
+int sensorValue = 0;     // Variable to store sensor reading
+int REDLED = 4;          // LED for LOW level
+int GREENLED = 5;       // LED for MEDIUM level
+int WHITELED = 6;         // LED for HIGH level
+int BUZZERPIN = 8;       // buzzer pin
+
+// Thresholds
+int lowLevel = 200;
+int mediumLevel = 500;
+int highLevel = 800;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(REDLED, OUTPUT);
+  pinMode(GREENLED, OUTPUT);
+  pinMode(WHITELED, OUTPUT);
+  pinMode(BUZZERPIN, OUTPUT);
+}
+
+void loop() {
+  sensorValue = analogRead(sensorPin);  
+
+  Serial.print("Water Level Sensor Value: ");
+  Serial.println(sensorValue);
+
+  // Reset all LEDs and buzzer
+  digitalWrite(REDLED, LOW);
+  digitalWrite(GREENLED, LOW);
+  digitalWrite(WHITELED, LOW);
+  digitalWrite(BUZZERPIN, LOW);
+
+  // Categorize water level
+  if (sensorValue < lowLevel) {
+    Serial.println("Water Level: LOW");
+    digitalWrite(REDLED, HIGH);
+
+  } else if (sensorValue >= lowLevel && sensorValue < mediumLevel) {
+    Serial.println("Water Level: MEDIUM");
+    digitalWrite(GREENLED, HIGH);
+
+  } else if (sensorValue >= mediumLevel && sensorValue < highLevel) {
+    Serial.println("Water Level: HIGH");
+    digitalWrite(WHITELED, HIGH);
+
+  } else if (sensorValue >= highLevel) {
+    Serial.println("Water Level: OVERFLOW!");
+    digitalWrite(WHITELED, HIGH);
+    digitalWrite(BUZZERPIN, HIGH);   // Sound alarm at overflow
+  }
+
+  delay(500);
+}
