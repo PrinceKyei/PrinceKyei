@@ -1,0 +1,195 @@
+#include <Servo.h>
+
+Servo myservo;
+int i=1; 
+int fbtn4=5; 
+int fbtn3=4;  
+int fbtn2=3; 
+int fbtn1=2;  
+
+int buttonState1=0;
+int buttonState2=0;
+int buttonState3=0;
+int buttonState4=0;
+const int buzzerpin=12;
+
+int motorPin1 = 8; 
+int motorPin2 = 9; 
+int motorPin3 = 10; 
+int motorPin4 = 11;
+
+void setup() {
+ pinMode(buzzerpin, OUTPUT); 
+ pinMode(motorPin1, OUTPUT); 
+ pinMode(motorPin2, OUTPUT); 
+ pinMode(motorPin3, OUTPUT); 
+ pinMode(motorPin4, OUTPUT); 
+ 
+  int delayTime = 50; 
+  Serial.begin(9600);
+  pinMode(fbtn4,INPUT);
+  pinMode(fbtn2,INPUT);
+  pinMode(fbtn3,INPUT);
+  pinMode(fbtn1,INPUT);
+  myservo.attach(7);
+}
+void loop() { 
+buttonState1 = digitalRead(fbtn1);
+buttonState2 = digitalRead(fbtn2);
+buttonState3 = digitalRead(fbtn3);
+buttonState4 = digitalRead(fbtn4);
+if(buttonState4 == HIGH){
+while(i<4){   
+    i++;
+        up();
+ Serial.print("You are on the ");
+    Serial.print(i);
+    Serial.println("floor");
+  }
+  i=4;
+  beepBuzzer();
+  opengate();
+  delay(5000);
+  closegate();
+  }
+  if(buttonState3==HIGH){
+  
+    if(i>3){
+      while(i>3) {
+      i--;
+      down();
+    Serial.print("You are on the ");
+    Serial.print(i);
+    Serial.println("floor");
+      }
+    }
+    if(i<3){ // person is waiting on the first or second floor. Call the elevater
+      while(i<3){
+        i++;
+        up();
+   Serial.print("You are on the ");
+    Serial.print(i);
+    Serial.println("floor");
+    }   
+    } 
+  i=3;
+  beepBuzzer();
+  opengate();
+  delay(5000);
+  closegate();
+  }
+  if(buttonState2 == HIGH){
+  if(i>2){
+    while(i>2)
+    {
+    i--;
+    down();
+    Serial.print("You are on the ");
+    Serial.print(i);
+    Serial.println("floor");
+
+    }  
+    i=2;  
+    beepBuzzer(); 
+    opengate();
+    delay(5000);
+    closegate();
+  }
+      if(i<2){
+      while(i<2){
+        i++;
+        up();
+    Serial.print("You are on the ");
+    Serial.print(i);
+    Serial.println("floor");
+      }
+      i=2;
+      beepBuzzer();
+      opengate();
+      delay(5000);
+      closegate();
+    }
+    }
+  if(buttonState1 == HIGH){
+    if(i>1){
+      while(i>1){
+      
+      i--;
+      down();
+    Serial.print("You are on the ");
+    Serial.print(i);
+    Serial.println("floor");
+    
+    }
+    }
+    i=1;
+    beepBuzzer();
+    opengate();
+    delay(5000);
+    closegate();       
+  }
+} 
+void up() { // each floor distance where it works to up
+
+  for(int b=0; b<1600; b++){
+    
+  digitalWrite(motorPin1, LOW);
+  digitalWrite(motorPin2, LOW);
+  digitalWrite(motorPin3, LOW);
+  digitalWrite(motorPin4, HIGH);
+  delay(2);
+  digitalWrite(motorPin1, LOW);
+  digitalWrite(motorPin2, LOW);
+  digitalWrite(motorPin3, HIGH);
+  digitalWrite(motorPin4, LOW);
+  delay(2);
+  digitalWrite(motorPin1, LOW);
+  digitalWrite(motorPin2, HIGH);
+  digitalWrite(motorPin3, LOW);
+  digitalWrite(motorPin4, LOW);
+  delay(2);
+  digitalWrite(motorPin1, HIGH);
+  digitalWrite(motorPin2, LOW);
+  digitalWrite(motorPin3, LOW);
+  digitalWrite(motorPin4, LOW);  
+  delay(2);
+  }
+
+}
+
+void down() { // each floor distance where it works to down
+ 
+
+ for(int a=0;a<1600;a++){
+     
+ digitalWrite(motorPin1, HIGH); 
+ digitalWrite(motorPin2, LOW); 
+ digitalWrite(motorPin3, LOW); 
+ digitalWrite(motorPin4, LOW); 
+ delay(2);
+ digitalWrite(motorPin1, LOW); 
+ digitalWrite(motorPin2, HIGH); 
+ digitalWrite(motorPin3, LOW); 
+ digitalWrite(motorPin4, LOW);
+ delay(2);
+ digitalWrite(motorPin1, LOW); 
+ digitalWrite(motorPin2, LOW); 
+ digitalWrite(motorPin3, HIGH); 
+ digitalWrite(motorPin4, LOW); 
+ delay(2);
+ digitalWrite(motorPin1, LOW); 
+ digitalWrite(motorPin2, LOW); 
+ digitalWrite(motorPin3, LOW); 
+ digitalWrite(motorPin4, HIGH); 
+ delay(2);
+ }
+}
+void beepBuzzer(){
+  tone(buzzerpin,1000,500);
+  }
+void opengate(){
+ myservo.write(120);
+}
+void closegate(){
+ myservo.write(0);
+}
