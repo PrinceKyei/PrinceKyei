@@ -1,0 +1,42 @@
+const int trigPin = 2;  // Define the TRIG pin
+const int echoPin = 3;  // Define the ECHO pin
+const int ledPin = 4;  // Define the LED pin
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(trigPin, OUTPUT);  // Set the TRIG pin as an output
+  pinMode(echoPin, INPUT);  // Set the ECHO pin as an input
+  pinMode(ledPin, OUTPUT);  // Set the LED pin as an output
+}
+
+void loop() {
+  // Clear the TRIG pin
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+
+  // Set the TRIG pin HIGH for 10 microseconds
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  // Read the ECHO pin
+  long duration = pulseIn(echoPin, HIGH);
+// Calculate the distance
+  float distance = duration * 0.034 / 2;
+
+  // Control the LED based on the distance
+  if (distance < 20) {
+    digitalWrite(ledPin, HIGH);  // Turn the LED on if the distance is less than 20 cm
+  } else {
+    digitalWrite(ledPin, LOW);  // Turn the LED off if the distance is greater than or equal to 20 cm
+  }
+
+  delay(1000);  // Wait for 1 second
+
+  // Print the distance to the serial monitor
+  Serial.print("Distance: ");
+  Serial.print(distance);
+  Serial.println(" cm");
+
+  delay(1000);  // Wait for 1 second
+}
