@@ -1,4 +1,11 @@
-## ARDUINO PROJECTS
-A collection of hands-on electronics projects built with Arduino microcontrollers. These projects combine hardware and software 
-to create interactive systems-featuring sensors and real-time data processing. 
-Each build demonstrates skills in circuit design, programming (C++), and problem-solving, turning ideas into functional prototypes.
+## Hi, I’m [PRINCE DOKU-KYEI]
+
+Welcome to my GitHub!
+I am a frontend developer and tech enthusiast passionate about building clean, responsive web apps and experimenting with hardware using Arduino.
+Here you’ll find a mix of:
+	•	🌐 Web Projects – from interactive quiz apps to full Progressive Web Apps (PWAs).
+	•	⚡ Arduino Builds – hands-on electronics and IoT experiments.
+	•	💡 Learning Repositories – code samples, tutorials, and personal experiments.
+
+I enjoy exploring HTML, CSS, JavaScript, and emerging technologies while sharing what I learn along the way.
+Feel free to explore or contribute!
