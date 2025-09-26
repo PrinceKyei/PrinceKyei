@@ -1,6 +1,6 @@
-#Hi, I’m PRINCE DOKU-KYEI#
-Welcome to my GitHub!
-I am a frontend developer and tech enthusiast passionate about building clean, responsive web apps and experimenting with hardware using Arduino.
+Welcome to CodeEdge Systems!
+
+A frontend developer and tech enthusiast passionate about building clean, responsive web apps and experimenting with hardware using Arduino.
 Here you’ll find a mix of:
 ---
 	•	🌐 Web Projects – from interactive quiz apps to full Progressive Web Apps (PWAs).
