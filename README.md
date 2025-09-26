@@ -1,4 +1,4 @@
-# Welcome to CodeEdge Systems!
+# CodeEdge Systems!
 
 Welcome to my GitHub!
 I’m a frontend developer and tech enthusiast passionate about building clean, responsive web apps and experimenting with hardware using Arduino.
