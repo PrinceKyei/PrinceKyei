@@ -9,5 +9,5 @@ Here you’ll find a mix of:
 	•	💡 Learning Repositories – code samples, tutorials, and personal experiments.
 ---
 
-I enjoy exploring HTML, CSS, JavaScript, and emerging technologies while sharing what I learn along the way.
+# I enjoy exploring HTML, CSS, JavaScript, and emerging technologies while sharing what I learn along the way.
 Feel free to explore or contribute!
